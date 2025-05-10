@@ -1,0 +1,29 @@
+-- Crear la base de datos
+CREATE DATABASE SistemaReservasCanchas;
+GO
+
+-- Usar la base de datos creada
+USE SistemaReservasCanchas;
+GO
+
+-- Crear la tabla 'Canchas'
+CREATE TABLE Canchas (
+    Id INT IDENTITY(1,1) PRIMARY KEY,  -- ID autogenerado
+    Nombre NVARCHAR(100) NOT NULL,      -- Nombre de la cancha
+    Tipo NVARCHAR(50) NOT NULL,         -- Tipo de cancha (Ej. fútbol, tenis, etc.)
+    Ubicación NVARCHAR(100) NOT NULL    -- Ubicación de la cancha
+);
+GO
+
+-- Crear la tabla 'Reservas'
+CREATE TABLE Reservas (
+    Id INT IDENTITY(1,1) PRIMARY KEY,  -- ID autogenerado
+    Fecha DATE NOT NULL,                -- Fecha de la reserva
+    HoraInicio TIME NOT NULL,           -- Hora de inicio de la reserva
+    HoraFin TIME NOT NULL,              -- Hora de fin de la reserva
+    ClienteNombre NVARCHAR(100) NOT NULL, -- Nombre del cliente
+    CanchaId INT,                       -- Clave foránea de la cancha
+    CONSTRAINT FK_Reservas_Canchas FOREIGN KEY (CanchaId) REFERENCES Canchas(Id)  -- Relación con la tabla Canchas
+);
+GO
+
